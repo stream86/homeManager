@@ -1,0 +1,92 @@
+[
+  {
+    "name": "orange",
+    "currentPrice": "3.4",
+    "previousPrice": 2.5,
+    "minPrice": {
+      "price": 1,
+      "month": "janvier"
+    },
+    "nutrition":{"calories": 100,"glucides": 30,"protéines": 20,"lipides": 10}
+  },
+  {
+    "name": "sauce tomate",
+    "currentPrice": "1.2",
+    "previousPrice": 1,
+    "minPrice": {
+      "price": 0.8,
+      "month": "mars"
+    },
+    "nutrition":{"calories": 0,"glucides": 0,"protéines": 0,"lipides": 0}
+  },
+  {
+    "name": "pain",
+    "currentPrice": "1.4",
+    "previousPrice": 1.2,
+    "minPrice": {
+      "price": 1.1,
+      "month": "fevrier"
+    },
+    "nutrition":{"calories": 0,"glucides": 0,"protéines": 0,"lipides": 0}
+  },
+  {
+    "name": "comte",
+    "currentPrice": "3.2",
+    "previousPrice": 3.2,
+    "minPrice": {
+      "price": 3.1,
+      "month": "mars"
+    },
+    "nutrition":{"calories": 0,"glucides": 0,"protéines": 0,"lipides": 0}
+  },
+  {
+    "name": "flocons d'avoine",
+    "previousPrice": "3",
+    "currentPrice": "3",
+    "minPrice": {
+      "price": "3",
+      "month": ""
+    },
+    "nutrition":{"calories": 0,"glucides": 0,"protéines": 0,"lipides": 0}
+  },
+  {
+    "name": "confiture figue",
+    "previousPrice": "2.5",
+    "currentPrice": "2.5",
+    "minPrice": {
+      "price": "2.5",
+      "month": ""
+    },
+    "nutrition":{"calories": 0,"glucides": 0,"protéines": 0,"lipides": 0}
+  },
+  {
+    "name": "viande de porc",
+    "previousPrice": "2",
+    "currentPrice": "2",
+    "minPrice": {
+      "price": "2",
+      "month": ""
+    },
+    "nutrition":{"calories": 0,"glucides": 0,"protéines": 0,"lipides": 0}
+  },
+  {
+    "name": "courgette",
+    "previousPrice": "1.5",
+    "currentPrice": "1.5",
+    "minPrice": {
+      "price": "1.5",
+      "month": ""
+    },
+    "nutrition":{"calories": 0,"glucides": 0,"protéines": 0,"lipides": 0}
+  },
+  {
+    "name": "brioche",
+    "previousPrice": "2.5",
+    "currentPrice": "2.5",
+    "minPrice": {
+      "price": "2.5",
+      "month": ""
+    },
+    "nutrition":{"calories": 0,"glucides": 0,"protéines": 0,"lipides": 0}
+  }
+]

@@ -1,0 +1,68 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Dépenses
+    </ion-title>
+    <ion-buttons start>
+  		<button ion-button menuToggle>
+  			<ion-icon name="menu"></ion-icon>
+  		</button>
+  	</ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+	<h2>Dépenses alimentaires mensuelles</h2>
+	<ion-card *ngIf="data" padding class="">
+		<ion-fab top right>
+   			<button ion-fab mini (click)="scrollToBottom()">
+   				<ion-icon name="add"></ion-icon>
+   			</button>
+ 		</ion-fab>
+ 		<ion-item>
+ 			<ion-label>Année :</ion-label>
+			<ion-select name="current-year" [(ngModel)]="costService.currentYear" (ionChange)="getData()">
+				<ion-option>2016</ion-option>
+				<ion-option>2017</ion-option>
+			</ion-select>
+		</ion-item>
+		<ion-item>
+			<h5 class="inline-block">Mois : {{costService.currentMonth}}</h5>
+			<h5  class="inline-block">
+				Dépenses :
+				<span>{{costService.getTotal()}}</span> euros
+			</h5>
+		</ion-item>
+		<ion-grid id="hist-container">
+			<ion-row>
+				<ion-col col-3 *ngIf="['janvier','fevrier','mars','avril','mai','juin','juillet','aout','septembre','octobre','novembre','decembre'] as mois" class="inline-block vertical-align">
+					<div class="month" *ngFor="let m of mois" (click)="costService.setMonth(m)">{{m | slice:0:3}}</div>
+				</ion-col>
+				<ion-col col-6 *ngIf="['janvier','fevrier','mars','avril','mai','juin','juillet','aout','septembre','octobre','novembre','decembre'] as mois" id="hist" class="inline-block vertical-align">
+					<div *ngFor="let m of mois" class="square" [style.width]="data[m].costs/costService.max*100+'%'" (click)="costService.setMonth(m)"></div>
+				</ion-col>
+			</ion-row>
+		</ion-grid>
+		<!-- <div id="costs-detail">
+			ICI dépenses par produit:
+			<div ng-repeat="month in $ctrl.monthManager.monthCosts">
+				test
+			</div>
+		</div> -->
+		<div id="hist-field">
+			<ion-list>
+  				<ion-item>
+				    <ion-label color="primary">Mois</ion-label>
+				    <ion-input name="current-month" [(ngModel)]="costService.currentMonth"></ion-input>
+  				</ion-item>
+  				<ion-item>
+				    <ion-label color="primary">Montant</ion-label>
+				    <ion-input type="number" name="amount" [(ngModel)]="costService.amount"></ion-input>
+  				</ion-item>
+  			</ion-list>
+			<div>
+				<button ion-button (click)="costService.updateData()">Valider</button>
+			</div>
+		</div>
+	</ion-card>
+</ion-content>

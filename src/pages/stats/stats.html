@@ -1,0 +1,138 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Statistiques
+    </ion-title>
+    <ion-buttons start>
+      <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <h2 text-center>Statistiques</h2>
+  <ion-fab top left>
+      <button ion-fab mini (click)="changeMod('edition')">
+        <ion-icon name="create"></ion-icon>
+      </button>
+  </ion-fab>
+  <ion-fab top right>
+      <button ion-fab mini (click)="changeMod('ajout')">
+        <ion-icon name="add"></ion-icon>
+      </button>
+  </ion-fab>
+  <ion-item>
+    <ion-label>Produits commençant par :</ion-label>
+    <ion-select name="name" #title *ngIf="['A','B','C','D','E','F','O','P'] as name" (ionChange)="statsService.setView(title.value)">
+      <ion-option *ngFor="let n of name">{{n}}</ion-option>
+    </ion-select>
+  </ion-item>
+  <ion-card>
+    <ion-item id="legend">
+        <ion-label>Evolution du prix - {{statsService.currentProduct.name}}</ion-label>
+    </ion-item>
+    <div>
+      <canvas id="canvas" #canvas></canvas>
+    </div>
+    <ion-item [style.fontSize]="12+'px'" [style.lineHeight]="2+'em'">
+      <span [ngStyle]="{'color':'yellow','font-size':'60px'}">.</span>Prix actuel : {{statsService.currentProduct.currentPrice}} euros<br>
+      <span [ngStyle]="{'color':'orange','font-size':'60px'}">.</span>Dernier prix connu : {{statsService.currentProduct.previousPrice}} euros<br>
+      <span [ngStyle]="{'color':'red','font-size':'60px'}">.</span>Prix minimum constaté : {{statsService.currentProduct.minPrice.price}} euros, atteint le : {{statsService.currentProduct.minPrice.date | date:'d MMM'}}
+    </ion-item>
+    <ion-item>
+      <ion-label class="dotted">Analyse nutritionnelle :</ion-label>
+    </ion-item>
+    <ion-item>
+      Calories :
+      <ion-badge item-end>{{statsService.currentProduct.nutrition.calories}}</ion-badge>
+    </ion-item>
+    <ion-item>
+      Glucides :
+      <ion-badge item-end>{{statsService.currentProduct.nutrition.glucides}}</ion-badge>
+    </ion-item>
+    <ion-item>
+      Protéines :
+      <ion-badge item-end>{{statsService.currentProduct.nutrition['protéines']}}</ion-badge>
+    </ion-item>
+    <ion-item>
+      Lipides :
+      <ion-badge item-end>{{statsService.currentProduct.nutrition.lipides}}</ion-badge>
+    </ion-item>
+    <ion-list padding-top [ngSwitch]="statsService.mode">
+      <div *ngSwitchCase="'ajout'">
+        <ion-item>
+          <ion-label class="dotted" color="danger">Ajouter un produit</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label color="primary">Produit</ion-label>
+          <ion-input name="name" [(ngModel)]="statsService.form.name" placeholder="nom du produit"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label color="primary">Prix</ion-label>
+          <ion-input type="number" name="amount" [(ngModel)]="statsService.form.price"></ion-input>
+        </ion-item>
+        <div text-center padding>
+          <button ion-button (click)="statsService.addProduct()">Valider</button>
+        </div>
+      </div>
+      <div *ngSwitchCase="'edition'">
+        <ion-item>
+          <ion-label class="dotted" color="danger">Modifier ce produit</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label color="primary">Produit</ion-label>
+          <ion-input name="name" [(ngModel)]="statsService.form.name" placeholder="{{statsService.currentProduct.name}}"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label color="primary">Prix</ion-label>
+          <ion-input type="number" name="amount" [(ngModel)]="statsService.form.price" placeholder="{{statsService.currentProduct.currentPrice}}"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label color="primary">Calories</ion-label>
+          <ion-input type="number" name="calories" [(ngModel)]="statsService.form.calories" placeholder="{{statsService.currentProduct.nutrition.calories}}"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label color="primary">Glucides</ion-label>
+          <ion-input type="number" name="glucides" [(ngModel)]="statsService.form.glucides" placeholder="{{statsService.currentProduct.nutrition.glucides}}"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label color="primary">Protéines</ion-label>
+          <ion-input type="number" name="proteines" [(ngModel)]="statsService.form['protéines']" placeholder="{{statsService.currentProduct.nutrition['protéines']}}"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label color="primary">Lipides</ion-label>
+          <ion-input type="number" name="lipides" [(ngModel)]="statsService.form.lipides" placeholder="{{statsService.currentProduct.nutrition.lipides}}"></ion-input>
+        </ion-item>
+        <div text-center padding>
+          <button ion-button (click)="this.content.scrollToTop();statsService.updateProduct()">Editer</button>
+        </div>
+      </div>
+    </ion-list>
+  </ion-card>
+  <ion-card *ngFor="let item of statsService.productsToDisplay" (click)="this.content.scrollToTop();statsService.setView(item)">
+    <ion-item color="blue">
+      <span class="product-title">
+        {{item.name}}
+      </span>
+      - tendance des prix : 
+      <span [ngClass]="{'arrow-red': 'grow'==statsService.getProductStatus(item),'arrow-green':'low'==statsService.getProductStatus(item),'arrow-steady':'steady'==statsService.getProductStatus(item)}">{{("grow"==statsService.getProductStatus(item))?"&#8599;":("low"==statsService.getProductStatus(item))?"&#8600;":"&#8594;"}}</span>
+    </ion-item>
+    <ion-item>
+      Prix constaté : {{statsService.currentProduct.currentPrice}} euros
+    </ion-item>
+    <ion-item class="label-small">Calories : {{statsService.currentProduct.nutrition.calories}},
+      Protéines : {{statsService.currentProduct.nutrition["protéines"]}},
+      Glucides : {{statsService.currentProduct.nutrition.glucides}},
+      Lipides : {{statsService.currentProduct.nutrition.lipides}},
+    </ion-item>
+  </ion-card>
+  <ion-infinite-scroll (ionInfinite)="statsService.doInfinite($event)">
+    <ion-infinite-scroll-content
+      loadingSpinner="bubbles"
+      loadingText="Loading more data...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>
+

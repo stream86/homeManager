@@ -1,0 +1,86 @@
+{
+	"2016": {
+		"janvier": {
+			"costs": 0,
+			"costs-detail": {
+				"orange": {
+					"costs": 0
+				},
+				"avoine": {
+					"costs": 0
+				}
+			}
+		},
+		"fevrier": {
+			"costs": 0
+		},
+		"mars": {
+			"costs": 0
+		},
+		"avril": {
+			"costs": 0
+		},
+		"mai": {
+			"costs": 0
+		},
+		"juin": {
+			"costs": 0
+		},
+		"juillet": {
+			"costs": 0
+		},
+		"aout": {
+			"costs": 0
+		},
+		"septembre": {
+			"costs": 0
+		},
+		"octobre": {
+			"costs": 0
+		},
+		"novembre": {
+			"costs": 0
+		},
+		"decembre": {
+			"costs": 0
+		}
+	},
+	"2017": {
+		"janvier": {
+			"costs": 0
+		},
+		"fevrier": {
+			"costs": 0
+		},
+		"mars": {
+			"costs": 0
+		},
+		"avril": {
+			"costs": 0
+		},
+		"mai": {
+			"costs": 0
+		},
+		"juin": {
+			"costs": 0
+		},
+		"juillet": {
+			"costs": 0
+		},
+		"aout": {
+			"costs": 0
+		},
+		"septembre": {
+			"costs": 0
+		},
+		"octobre": {
+			"costs": 0
+		},
+		"novembre": {
+			"costs": 0
+		},
+		"decembre": {
+			"costs": 0
+		}
+	}
+}
